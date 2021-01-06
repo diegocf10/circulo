@@ -48,14 +48,56 @@ onDOMLoaded(() => {
   let timer;
   const btnStart = document.getElementById("btn-1");
   const btnReset = document.getElementById("btn-2");
+  const btnDownload = document.getElementById("btn-3");
   const circleInfo = document.getElementById("circle-info");
   const circleColorInfo = document.getElementById("circle-color");
+
+  btnDownload.addEventListener("click", () => {
+    const aElem = document.createElement("a");
+    aElem.download = "canvas.png";
+    aElem.href = canvas.toDataURL();
+    aElem.click();
+  });
 
   btnReset.addEventListener("click", () => {
     clearTimeout(timer);
     btnStart.textContent = "Iniciar";
     ctx.clearRect(0, 0, size, size);
     circles = [];
+  });
+
+  // retorna círculo (i) que contém o ponto
+  function foundCircle(x, y) {
+    for (let i = circles.length - 1; i >= 0; --i) {
+      const circle = circles[i];
+      if (dist(x, y, circle.x, circle.y) <= circle.r) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  function redrawCircles() {
+    ctx.clearRect(0, 0, size, size);
+    for (let i = circles.length - 1; i >= 0; --i) {
+      const circle = circles[i];
+      drawCircle(circle.x, circle.y, circle.r, circle.color);
+    }
+  }
+
+  canvas.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const i = foundCircle(x, y);
+
+    if (i !== -1) {
+      circles.splice(i, 1);
+      redrawCircles();
+    }
   });
 
   canvas.addEventListener("mousemove", (e) => {
@@ -68,18 +110,11 @@ onDOMLoaded(() => {
     const y = e.clientY - rect.top;
 
     let text = ` (Posição: x: ${x.toFixed(0)}, y: ${y.toFixed(0)})`;
-    let found = false;
-    let circle;
 
-    for (let i = circles.length - 1; i >= 0; --i) {
-      circle = circles[i];
-      if (dist(x, y, circle.x, circle.y) <= circle.r) {
-        found = true;
-        break;
-      }
-    }
+    let i = foundCircle(x, y);
 
-    if (found) {
+    if (i !== -1) {
+      const circle = circles[i];
       text += ` | Círculo (x: ${circle.x.toFixed(0)}, y: ${circle.y.toFixed(
         0
       )}, r: ${circle.r.toFixed(0)}, cor: ${circle.color})`;
