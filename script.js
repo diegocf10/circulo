@@ -85,7 +85,7 @@ onDOMLoaded(() => {
     }
   }
 
-  canvas.addEventListener("contextmenu", (e) => {
+  canvas.addEventListener("click", (e) => {
     e.preventDefault();
     const rect = canvas.getBoundingClientRect();
 
