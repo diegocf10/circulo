@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Empacotamento</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/modern-css-reset/dist/reset.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      h3 {
+        margin-bottom: 10px;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        color: #233;
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+
+      #my-canvas {
+        /* background: #233; */
+        background: #fff;
+        border: 1px solid black;
+      }
+
+      .btn {
+        font-family: "Roboto", sans-serif;
+        font-size: 10px;
+        background-color: #233;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 3px;
+      }
+      .btn:hover {
+        color: #2ac1a6;
+        cursor: pointer;
+      }
+
+      .circle-info {
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .square {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        vertical-align: middle;
+      }
+    </style>
+
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <h3>
+      Empacotamento de círculos (
+      <input type="checkbox" id="colored" name="colored" checked />
+      <label for="colored">colorido</label> )
+    </h3>
+    <canvas id="my-canvas" width="800px" height="800px"> </canvas><br />
+
+    <button id="btn-1" class="btn">Iniciar</button>
+    <button id="btn-2" class="btn">Reset</button>
+    <span id="circle-info" class="circle-info" style="display: none"></span>
+    <span id="circle-color" class="square" style="display: none"></span>
+  </body>
+</html>
